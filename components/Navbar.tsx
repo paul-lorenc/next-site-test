@@ -1,4 +1,4 @@
-import Link from 'next/link'
+import Link from "next/link";
 
 function Navbar() {
   return (
@@ -19,7 +19,7 @@ function Navbar() {
         </Link>
       </li>
     </ul>
-  )
+  );
 }
 
-export default Navbar
+export default Navbar;
