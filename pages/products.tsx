@@ -38,7 +38,7 @@ export default function Products({ data }) {
               <h3>{p.name}</h3>
               <h4>{p.price}</h4>
               <p>{p.description.text}</p>
-              <Link href={`/product/${p.id}`}>
+              <Link href={`/product/${p.slug}`}>
                 <a>View More</a>
               </Link>
             </div>

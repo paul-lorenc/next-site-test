@@ -1,9 +1,9 @@
 import { gql } from "@apollo/client";
 import { Client } from "client";
 
-const GET_PROD_BY_ID = gql`
-  query getProduct($id: ID!) {
-    product(where: { id: $id }) {
+const GET_PROD_BY_SLUG = gql`
+  query getProduct($slug: String!) {
+    product(where: { slug: $slug }) {
       name
       description {
         text
@@ -14,11 +14,11 @@ const GET_PROD_BY_ID = gql`
 `;
 
 export async function getStaticProps({ params }) {
-  let id: string = params.pid;
+  let slug: string = params.pid;
   const { data } = await Client.query({
-    query: GET_PROD_BY_ID,
+    query: GET_PROD_BY_SLUG,
     variables: {
-      id,
+      slug,
     },
   });
   return {
@@ -33,7 +33,7 @@ export async function getStaticPaths() {
     query: gql`
       query {
         products {
-          id
+          slug
         }
       }
     `,
@@ -41,7 +41,7 @@ export async function getStaticPaths() {
   let products: any[] = data.products;
   return {
     paths: products.map((p) => ({
-      params: { pid: p.id },
+      params: { pid: p.slug },
     })),
     fallback: false,
   };
