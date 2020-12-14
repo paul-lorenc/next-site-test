@@ -1,14 +1,9 @@
 import Link from "next/link";
-import Navbar from "components/Navbar";
-import { ApolloClient, InMemoryCache, gql } from "@apollo/client";
+import { gql } from "@apollo/client";
+import { Client } from "client";
 
 export async function getStaticProps() {
-  const client = new ApolloClient({
-    uri:
-      "https://api-us-east-1.graphcms.com/v2/ckinhecvrl1be01z4hkdjdb7q/master",
-    cache: new InMemoryCache(),
-  });
-  const { data } = await client.query({
+  const { data } = await Client.query({
     query: gql`
       query {
         products {
@@ -39,11 +34,14 @@ export default function Products({ data }) {
       <div>
         {products.map((p) => {
           return (
-            <a key={p.id}>
+            <div key={p.id}>
               <h3>{p.name}</h3>
               <h4>{p.price}</h4>
               <p>{p.description.text}</p>
-            </a>
+              <Link href={`/product/${p.id}`}>
+                <a>View More</a>
+              </Link>
+            </div>
           );
         })}
       </div>
